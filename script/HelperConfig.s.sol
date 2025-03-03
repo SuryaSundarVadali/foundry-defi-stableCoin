@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 import {Script} from "forge-std/Script.sol";
 import {MockV3Aggregator} from "test/mocks/MockV3Aggregator.sol";
 import { ERC20Mock } from "test/mocks/ERC20Mock.sol";
@@ -18,7 +18,7 @@ contract HelperConfig is Script {
     int256 public constant BTC_USD_PRICE = 1000e8;
     uint256 public DEFAULT_ANVIL_KEY =  0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
 
-    NetworkConfig private activeNetworkConfig;
+    NetworkConfig public activeNetworkConfig;
     constructor() {
         if(block.chainid == 11155111){
             activeNetworkConfig = getSepoliaETHConfig();
@@ -26,6 +26,7 @@ contract HelperConfig is Script {
         else{
             activeNetworkConfig = getOrCreateAnvilConfig();
         }
+    }
 
     function getSepoliaETHConfig() public view returns(NetworkConfig memory){
         return NetworkConfig({
